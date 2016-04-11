@@ -10,3 +10,10 @@ def roll_a_dice():
     second = random.randint(1, 6)
     return (first, second)
 
+
+class Player:
+    def __init__(self, name, color, bank, position):
+        self.name = name
+        self.color = color
+        self.bank = bank
+        self.position = position
