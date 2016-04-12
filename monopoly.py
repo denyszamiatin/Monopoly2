@@ -19,3 +19,15 @@ class Player:
         self.color = color
         self.bank = bank
         self.position = position
+
+def create_player(name, color, bank, position):
+    """
+    create a player
+    >>> create_player('Bob', 'red', 20000, 'a1') # doctest: +ELLIPSIS
+    <__main__.Player object at 0x...
+    """
+    return Player(name, color, bank, position)
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
