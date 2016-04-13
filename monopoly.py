@@ -50,11 +50,15 @@ class Collection_Players:
         for number_player in range(amount_players):
             player = create_player()
             self.__dict__[player.name] = player
-            print(self.__dict__)
 
 
-collection = Collection_Players(2)
 
+
+
+
+#amount_players = int(input('input amount of players: '))
+#collection_players = Collection_Players(amount_players)
+#print(collection_players.Bob.__dict__)
 
 if __name__ == "__main__":
     import doctest
