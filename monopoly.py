@@ -20,13 +20,41 @@ class Player:
         self.bank = bank
         self.position = position
 
-def create_player(name, color, bank, position):
+
+def get_player_information():
+    name = input('input name: ')
+    color = input('input color: ')
+    bank = input('input bank: ')
+    position = input('input position: ')
+    return name, color, bank, position
+
+
+def create_player():
     """
     create a player
-    >>> create_player('Bob', 'red', 20000, 'a1') # doctest: +ELLIPSIS
-    <__main__.Player object at 0x...
+    >>> create_player() # doctest: +ELLIPSIS
+    input name: input color: input bank: input position: <__main__.Player object at 0x...
     """
-    return Player(name, color, bank, position)
+    return Player(*get_player_information())
+
+
+class Collection_Players:
+    '''
+    class collection of players
+    '''
+    def __init__(self, amount_players):
+        '''
+        creating attribute names of players with values-objects a class Player
+        :param amount_players: amount of players
+        '''
+        for number_player in range(amount_players):
+            player = create_player()
+            self.__dict__[player.name] = player
+            print(self.__dict__)
+
+
+collection = Collection_Players(2)
+
 
 if __name__ == "__main__":
     import doctest
