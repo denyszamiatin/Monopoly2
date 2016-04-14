@@ -44,21 +44,17 @@ class Collection_Players:
     '''
     def __init__(self, amount_players):
         '''
-        creating attribute names of players with values-objects a class Player
+        creating attribute(names of players) with values(objects a class Player)
         :param amount_players: amount of players
         '''
         for number_player in range(amount_players):
             player = create_player()
-            self.__dict__[player.name] = player
+            setattr(Collection_Players, player.name, player)
 
 
 
 
 
-
-#amount_players = int(input('input amount of players: '))
-#collection_players = Collection_Players(amount_players)
-#print(collection_players.Bob.__dict__)
 
 if __name__ == "__main__":
     import doctest
