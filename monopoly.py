@@ -29,31 +29,28 @@ def get_player_information():
     return name, color, bank, position
 
 
-def create_player():
+def create_player(get_player_information=get_player_information):
     """
-    create a player
-    >>> create_player() # doctest: +ELLIPSIS
-    input name: input color: input bank: input position: <__main__.Player object at 0x...
+    Create a player
+    >>>
+    >>> p = create_player(get_player_information=lambda: ('x', 'x', 2000, 0))
+    >>> p.name
+    'x'
     """
     return Player(*get_player_information())
 
 
-class Collection_Players:
+class CollectionPlayers:
     '''
-    class collection of players
+    Collection of players
     '''
     def __init__(self, amount_players):
         '''
-        creating attribute(names of players) with values(objects a class Player)
-        :param amount_players: amount of players
+        :param amount of players
         '''
-        for number_player in range(amount_players):
-            player = create_player()
-            setattr(Collection_Players, player.name, player)
-
-
-
-
+        self.players = [
+            create_player() for _ in range(amount_players)
+        ]
 
 
 if __name__ == "__main__":
