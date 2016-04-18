@@ -52,7 +52,49 @@ class CollectionPlayers:
             create_player() for _ in range(amount_players)
         ]
 
-
+class Field:
+    fields = [
+        'Collect $200 salary as you pass GO',
+        'Mediter-ranean Avenue $60',
+        'Community Chest',
+        'Baltic Avenue $60',
+        'Income Tax (pay $200)',
+        'Reading Railroad $200',
+        'Oriental Avenue $100',
+        'Chance',
+        'Vermont Avenue $100',
+        'Connecticut Avenue $120',
+        'In Jail/Just Visiting',
+        'St. Charles Place$140',
+        'Electric Company $150',
+        'States Avenue $140',
+        'Virginia Avenue $160',
+        'Pennsylvania Railroad $200',
+        'St. James Place $180',
+        'Community Chest',
+        'Tennessee Avenue $180',
+        'New York Avenue $200',
+        'Free Parking',
+        'Kentucky Avenue $220',
+        'Chance',
+        'Indiana Avenue $220',
+        'Illinois Avenue $240',
+        'B&O Railroad $200',
+        'Atlantic Avenue $260',
+        'Ventnor Avenue $260',
+        'Water Works $150',
+        'Marvin Gardens $280',
+        'Go To Jail',
+        'Pacific Avenue $300',
+        'North Carolina Avenue $300',
+        'Community Chest',
+        'Pennsylvania Avenue $320',
+        'Short Line $200',
+        'Chance',
+        'Park Place $350',
+        'Luxury Tax (pay $100)',
+        'Boardwalk $400'
+    ]
 
 if __name__ == "__main__":
     import doctest
