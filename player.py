@@ -1,0 +1,61 @@
+import random
+
+import monopoly
+import field
+
+class Player:
+    """
+    """
+    def __init__(self, name, color, bank, position):
+        """
+        """
+        self.name = name
+        self.color = color
+        self.bank = bank
+        self.position = position
+
+    def make_move(self):
+        '''
+        Get new player's position
+        '''
+        self.position += sum(monopoly.roll_dice()) % \
+                         (field.Field.get_field_count() - 1)
+
+
+def get_player_information():
+    name = input('input name: ')
+    color = input('input color: ')
+    bank = input('input bank: ')
+    position = input('input position: ')
+    return name, color, bank, position
+
+
+def create_player(get_player_information=get_player_information):
+    """
+    Create a player
+    >>>
+    >>> p = create_player(get_player_information=lambda: ('x', 'x', 2000, 0))
+    >>> p.name
+    'x'
+    """
+    return Player(*get_player_information())
+
+
+class CollectionPlayers:
+    '''
+    Collection of players
+    '''
+    def __init__(self, amount_players):
+        '''
+        :param amount of players
+        '''
+        self.players = [
+            create_player() for _ in range(amount_players)
+        ]
+        self.shuffle_players()
+
+    def shuffle_players(self):
+        """
+        Returns list of players sorted by roll dice result
+        """
+        random.shuffle(self.players)
