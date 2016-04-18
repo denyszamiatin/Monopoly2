@@ -127,9 +127,15 @@ class Board:
         '''
         return self.board[number].field
 
-board = Board()
-print(board)
-print(board.get_field_information(0))
+def make_move(position):
+    '''
+    Get new player's position
+    :param position:
+    :return: new player's position
+    '''
+    return (position + sum(roll_dice())) % 39
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
