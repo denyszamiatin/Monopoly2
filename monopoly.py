@@ -53,6 +53,14 @@ class CollectionPlayers:
         ]
 
 
+def make_move(position):
+    '''
+    Get new player's position
+    :param position:
+    :return: new player's position
+    '''
+    return (position + sum(roll_dice())) % 36
+
 
 if __name__ == "__main__":
     import doctest
