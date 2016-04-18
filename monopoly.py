@@ -59,7 +59,7 @@ def make_move(position):
     :param position:
     :return: new player's position
     '''
-    return (position + sum(roll_dice())) % 36
+    return (position + sum(roll_dice())) % 39
 
 
 if __name__ == "__main__":
