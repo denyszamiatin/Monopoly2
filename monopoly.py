@@ -104,8 +104,32 @@ class Field:
         '''
         self.field = self.__fields[number]
 
+class Board:
+    '''
+    Board
+    '''
+    def __init__(self):
+        self.board = [Field(number) for number in range(40)]
+    def __repr__(self):
+        print('repr Board')
+        return 'Board()'
+    def __str__(self):
+        print('str Board')
+        return 'Board: \n {}'.format([field.field for field in self.board])
+    def get_field_information(self, number):
+        '''
+        Return field information by number
+        :param number: number field 0 - 39
+        :return:
+        >>> board = Board()
+        >>> board.get_field_information(0)
+        ['Collect $200 salary as you pass GO', 200]
+        '''
+        return self.board[number].field
 
-
+board = Board()
+print(board)
+print(board.get_field_information(0))
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
