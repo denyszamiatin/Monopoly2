@@ -40,6 +40,17 @@ while True:
             show_field_after_motion()
 
 
+def check_field(field, RealEstate):
+    '''
+
+    :param field:
+    :param RealEstate:
+    :return: prints name and cost of real estate field
+    '''
+    if isinstance(field, RealEstate):
+        print(field)
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
