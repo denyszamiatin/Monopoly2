@@ -19,12 +19,11 @@ def get_amount_players():
     return int(input('input amount_players: '))
 
 
-def push_make_move(player):
+def push_make_move(name):
     '''
     Waiting for the team to go
     '''
-    print('{}'.format(player.name))
-    return input('input "go": ') == 'go'
+    return input('{}\ninput "go": '.format(name)) == 'go'
 
 
 def show_field_after_motion():
@@ -32,15 +31,19 @@ def show_field_after_motion():
     Display position of the player as a result of movement
     '''
     print('{} new position: {}'.format(goes_player.name, goes_player.position))
+def show_field_after_motion(name, position):
+    print('{} new position: {}'.format(name, position))
 
 
-players_queue = player.CollectionPlayers(get_amount_players()).players
+player_collection = player.CollectionPlayers(get_amount_players())
+players_queue = player_collection.players
 
 while True:
-    for goes_player in players_queue:
-        if push_make_move(goes_player):
-            goes_player.make_move() #функція не враховує можливості дублю?!
-            show_field_after_motion()
+    for going_player in players_queue:
+        if push_make_move(going_player.name):
+            # TODO: функція не враховує можливості дублю?!
+            going_player.make_move()
+            show_field_after_motion(going_player.name, going_player.position)
 
 
 def check_field(field, RealEstate):
@@ -52,7 +55,6 @@ def check_field(field, RealEstate):
     '''
     if isinstance(field, RealEstate):
         print(field)
-
 
 
 if __name__ == "__main__":

@@ -30,23 +30,25 @@ class Player:
                          (field.Field.get_field_count() - 1)
 
 
-def get_player_information():
-    name = input('input name: ')
-    color = input('input color: ')
-    bank = input('input bank: ')
-    position = input('input position: ')
-    return name, color, bank, position
+    @staticmethod
+    def get_player_information():
+        name = input('input name: ')
+        color = input('input color: ')
+        bank = input('input bank: ')
+        position = input('input position: ')
+        return name, color, bank, position
 
 
-def create_player(get_player_information=get_player_information):
-    """
-    Create a player
-    >>>
-    >>> p = create_player(get_player_information=lambda: ('x', 'x', 2000, 0))
-    >>> p.name
-    'x'
-    """
-    return Player(*get_player_information())
+    @staticmethod
+    def create_player(get_player_information=get_player_information):
+        """
+        Create a player
+        >>>
+        >>> p = create_player(get_player_information=lambda: ('x', 'x', 2000, 0))
+        >>> p.name
+        'x'
+        """
+        return Player(*get_player_information())
 
 
 class CollectionPlayers:
