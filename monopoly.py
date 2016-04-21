@@ -54,6 +54,7 @@ def check_field(field, RealEstate):
         print(field)
 
 
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
