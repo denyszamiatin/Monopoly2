@@ -1,7 +1,7 @@
 import random
 
-import monopoly
 import field
+import monopoly
 
 class Player:
     """
