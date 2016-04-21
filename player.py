@@ -3,6 +3,7 @@ import random
 import field
 import monopoly
 
+
 class Player:
     """
     """
@@ -22,6 +23,7 @@ class Player:
                          (field.Field.get_field_count() - 1)
 
 
+    @staticmethod
     def get_player_information():
         name = input('input name: ')
         color = input('input color: ')
@@ -30,6 +32,7 @@ class Player:
         return name, color, bank, position
 
 
+    @staticmethod
     def create_player(get_player_information=get_player_information):
         """
         Create a player
@@ -50,7 +53,7 @@ class CollectionPlayers:
         :param amount of players
         '''
         self.players = [
-            create_player() for _ in range(amount_players)
+            Player.create_player() for _ in range(amount_players)
         ]
         self.shuffle_players()
 
