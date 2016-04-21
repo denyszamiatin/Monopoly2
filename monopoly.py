@@ -3,14 +3,6 @@ import random
 import player
 
 
-def roll_dice():
-    """
-    Get the result of rolling two dice
-    :return: list of integers
-    """
-    return tuple([random.randint(1, 6) for _ in range(2)])
-
-
 def get_amount_players():
     '''
     The amount of players entering
@@ -28,6 +20,9 @@ def push_make_move(player):
 
 
 def show_field_after_motion():
+    '''
+    Display position of the player as a result of movement
+    '''
     print('{} new position: {}'.format(goes_player.name, goes_player.position))
 
 
@@ -38,6 +33,7 @@ while True:
         if push_make_move(goes_player):
             goes_player.make_move() #функція не враховує можливості дублю?!
             show_field_after_motion()
+
 
 
 if __name__ == "__main__":

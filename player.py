@@ -1,7 +1,15 @@
 import random
 
 import field
-import monopoly
+#import monopoly
+
+def roll_dice():
+    """
+    Get the result of rolling two dice
+    :return: list of integers
+    """
+    return tuple([random.randint(1, 6) for _ in range(2)])
+
 
 class Player:
     """
@@ -18,15 +26,15 @@ class Player:
         '''
         Get new player's position
         '''
-        self.position += sum(monopoly.roll_dice()) % \
+        self.position += sum(roll_dice()) % \
                          (field.Field.get_field_count() - 1)
 
 
 def get_player_information():
     name = input('input name: ')
     color = input('input color: ')
-    bank = input('input bank: ')
-    position = input('input position: ')
+    bank = int(input('input bank: '))
+    position = int(input('input position: '))
     return name, color, bank, position
 
 
