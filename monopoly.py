@@ -3,6 +3,14 @@ import random
 import player
 
 
+def roll_dice():
+    """
+    Get the result of rolling two dice
+    :return: list of integers
+    """
+    return tuple([random.randint(1, 6) for _ in range(2)])
+
+
 def get_amount_players():
     '''
     The amount of players entering
@@ -34,6 +42,16 @@ while True:
             goes_player.make_move() #функція не враховує можливості дублю?!
             show_field_after_motion()
 
+
+def check_field(field, RealEstate):
+    '''
+
+    :param field:
+    :param RealEstate:
+    :return: prints name and cost of real estate field
+    '''
+    if isinstance(field, RealEstate):
+        print(field)
 
 
 if __name__ == "__main__":

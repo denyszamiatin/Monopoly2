@@ -26,15 +26,15 @@ class Player:
         '''
         Get new player's position
         '''
-        self.position += sum(roll_dice()) % \
+        self.position += sum(monopoly.roll_dice()) % \
                          (field.Field.get_field_count() - 1)
 
 
 def get_player_information():
     name = input('input name: ')
     color = input('input color: ')
-    bank = int(input('input bank: '))
-    position = int(input('input position: '))
+    bank = input('input bank: ')
+    position = input('input position: ')
     return name, color, bank, position
 
 
