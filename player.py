@@ -27,8 +27,7 @@ class Player:
         '''
         Get new player's position
         '''
-        self.position += sum(self.roll_dice()) % \
-                         (field.Field.get_field_count() - 1)
+        self.position = (sum(self.roll_dice()) + self.position)  % (field.Field.get_field_count() - 1)
 
 
     @staticmethod
