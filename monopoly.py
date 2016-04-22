@@ -26,12 +26,10 @@ def push_make_move(name):
     return input('{}\ninput "go": '.format(name)) == 'go'
 
 
-def show_field_after_motion():
+def show_field_after_motion(name, position):
     '''
     Display position of the player as a result of movement
     '''
-    print('{} new position: {}'.format(goes_player.name, goes_player.position))
-def show_field_after_motion(name, position):
     print('{} new position: {}'.format(name, position))
 
 
