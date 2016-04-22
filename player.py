@@ -1,6 +1,6 @@
 import random
 
-import field
+import field, observers
 
 
 class Player:
@@ -13,6 +13,7 @@ class Player:
         self.color = color
         self.bank = bank
         self.position = position
+        self.previous_position = 0
 
 
     def roll_dice(self):
@@ -22,12 +23,14 @@ class Player:
         """
         return tuple([random.randint(1, 6) for _ in range(2)])
 
-
+    @observers.use_observers
     def make_move(self):
         '''
         Get new player's position
         '''
+        self.previous_position = self.position
         self.position = (sum(self.roll_dice()) + self.position)  % (field.Field.get_field_count() - 1)
+        return self
 
 
     @staticmethod
