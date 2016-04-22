@@ -45,6 +45,16 @@ class Field:
         ['Boardwalk $400', 'blue', -350]
     ]
 
+    def __new__(cls, desc):
+        '''
+
+        :param desc:
+        :return: an instance of RealEstate class
+        '''
+        if desc == 'RealEstate':
+            return super(Field, cls).__new__(RealEstate)
+
+
     def __init__(self, number):
         '''
         :param number: number field 0 - 39
@@ -61,10 +71,11 @@ class Field:
         return self.field
 
 
-class RealEstate(Field):
-    def __init__(self, name, cost):
+class RealEstate:
+    def __init__(self, number, name, cost):
+        self.number = number
         self.name = name
         self.cost = cost
 
     def __str__(self):
-        return '{} : {}'.format(self.name, self.cost)
+        return '{}, {}, {}'.format(self.number, self.name, self.cost)
