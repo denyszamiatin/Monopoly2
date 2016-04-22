@@ -23,7 +23,7 @@ class Player:
         """
         return tuple([random.randint(1, 6) for _ in range(2)])
 
-    @observers.use_observers
+    @observers.obj_observers
     def make_move(self):
         '''
         Get new player's position

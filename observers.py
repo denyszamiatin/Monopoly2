@@ -1,28 +1,32 @@
 import field
 
-observers = []
-def use_observers(f):
-    def wraper(*args, **kwargs):
-        result = f(*args, **kwargs)
-        print('result', result)
-        for observer in observers:
-            observer(result)
-        return result
-    return wraper
 
-def on_observer(observer):
-    if observer not in observers:
-        observers.append(observer)
+class Observable():
+    def __init__(self):
+        self.observers = []
+    def __call__(self, f):
+        def wrapper(*args, **kwargs):
+            result = f(*args, **kwargs)
+            for observer in self.observers:
+                observer(result)
+            return result
+        return wrapper
 
-def off_observer(observer):
-    if observer in observers:
-        observers.remove(observer)
+    def register(self, observer):
+        if observer not in self.observers:
+            self.observers.append(observer)
 
-def off_all_observer():
-    if observers:
-        del observers[:]
+    def unregister(self, observer):
+        if observer in self.observers:
+            self.observers.remove(observer)
 
-def crossing_start(going_player):
-    if going_player.position < going_player.previous_position:
-        going_player.bank += field.Field._FIELDS[0][-1]
-        print(going_player.bank)
+    def unregister_all(self):
+        if self.observers:
+            del self.observers[:]
+
+    @staticmethod
+    def crossing_start(going_player):
+        if going_player.position < going_player.previous_position:
+            going_player.bank += field.Field._FIELDS[0][-1]
+
+obj_observers = Observable()
