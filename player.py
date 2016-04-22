@@ -3,14 +3,6 @@ import random
 import field
 
 
-def roll_dice():
-    """
-    Get the result of rolling two dice
-    :return: list of integers
-    """
-    return tuple([random.randint(1, 6) for _ in range(2)])
-
-
 class Player:
     """
     """
@@ -22,11 +14,20 @@ class Player:
         self.bank = bank
         self.position = position
 
+
+    def roll_dice(self):
+        """
+        Get the result of rolling two dice
+        :return: list of integers
+        """
+        return tuple([random.randint(1, 6) for _ in range(2)])
+
+
     def make_move(self):
         '''
         Get new player's position
         '''
-        self.position += sum(roll_dice()) % \
+        self.position += sum(self.roll_dice()) % \
                          (field.Field.get_field_count() - 1)
 
 
