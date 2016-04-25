@@ -1,21 +1,21 @@
 import random
 
-import field, observers
+import field
+import observers
 
 
 class Player:
     """
     """
-    def __init__(self, name, color, bank, position):
+
+    def __init__(self, name, color, bank):
         """
         """
         self.name = name
         self.color = color
         self.bank = bank
-        self.position = position
+        self.position = 0
         self.previous_position = 0
-        self.current_field = field.Field(self.position)
-        self.collection_real_estate = {}
 
     def roll_dice(self):
         """
@@ -24,7 +24,7 @@ class Player:
         """
         return tuple([random.randint(1, 6) for _ in range(2)])
 
-    @observers.obj_observers
+    @observers.player_observer
     def make_move(self):
         print('make_move')
         '''
@@ -32,17 +32,22 @@ class Player:
         '''
         self.previous_position = self.position
         self.position = (sum(self.roll_dice()) + self.position) % (field.Field.get_field_count() - 1)
-        self.current_field = field.Field(self.position)
         return self
 
+    def change_balance(self, cost):
+        self.bank += cost
+
+    def buy_real_estate(self, field):
+        if self.input('?') == 'y':
+            self.change_balance(field.cost)
+            field.owner = self
 
     @staticmethod
     def get_player_information():
         name = input('input name: ')
         color = input('input color: ')
         bank = int(input('input bank: '))
-        position = int(input('input position: '))
-        return name, color, bank, position
+        return name, color, bank
 
 
     @staticmethod
@@ -55,17 +60,6 @@ class Player:
         'x'
         """
         return Player(*Player.get_player_information())
-
-    def buy_real_estate(self):
-        '''
-        It gives the opportunity to buy property if the player has enough money
-        :return:
-        '''
-        if input('{}, do you want to buy this real estate? \n input "yes": '.format(self.name)) == 'yes':
-            if not self.bank >= self.current_field.cost:
-                raise ValueError('not enough money!')
-            self.bank -= self.current_field.cost
-            self.collection_real_estate[self.current_field.name] = self.current_field
 
 
 class CollectionPlayers:
@@ -86,3 +80,7 @@ class CollectionPlayers:
         Returns list of players sorted by roll dice result
         """
         random.shuffle(self.players)
+
+    def __iter__(self):
+        for player in self.players:
+            yield player

@@ -26,6 +26,4 @@ class Board:
         >>> board[0]
         ['Collect $200 salary as you pass GO', 200]
         '''
-        return self.board[item].field
-
-obj_board = Board()
+        return self.board[item]

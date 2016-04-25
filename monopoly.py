@@ -1,5 +1,3 @@
-import random
-
 import player, observers, board
 
 
@@ -29,17 +27,20 @@ def show_field_after_motion(name, position):
 
 
 player_collection = player.CollectionPlayers(get_amount_players())
-players_queue = player_collection.players
+game_board = board.Board()
+player.Player.board = game_board
+player.Player.input = input
 
-observers.obj_observers.register(observers.Observable.crossing_start)
-observers.obj_observers.register(observers.Observable.check_real_estate)
+observers.player_observer.register(observers.Observable.crossing_start)
+
 
 while True:
-    for going_player in players_queue:
+    for going_player in player_collection:
         if push_make_move(going_player.name):
             # TODO: функція make_move не враховує можливості дублю?!
             going_player.make_move()
             show_field_after_motion(going_player.name, going_player.position)
+            game_board[going_player.position].do(going_player)
 
 
 if __name__ == "__main__":
