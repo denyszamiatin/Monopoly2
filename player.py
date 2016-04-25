@@ -14,7 +14,8 @@ class Player:
         self.bank = bank
         self.position = position
         self.previous_position = 0
-
+        self.current_field = field.Field(self.position)
+        self.collection_real_estate = {}
 
     def roll_dice(self):
         """
@@ -25,11 +26,13 @@ class Player:
 
     @observers.obj_observers
     def make_move(self):
+        print('make_move')
         '''
         Get new player's position
         '''
         self.previous_position = self.position
-        self.position = (sum(self.roll_dice()) + self.position)  % (field.Field.get_field_count() - 1)
+        self.position = (sum(self.roll_dice()) + self.position) % (field.Field.get_field_count() - 1)
+        self.current_field = field.Field(self.position)
         return self
 
 
@@ -52,6 +55,18 @@ class Player:
         'x'
         """
         return Player(*Player.get_player_information())
+
+    def buy_real_estate(self):
+        '''
+        It gives the opportunity to buy property if the player has enough money
+        :return:
+        '''
+        print('buy_real_estate')
+        if input('{}, do you want to buy this real estate? \n input "yes": '.format(self.name)) == 'yes':
+            if not self.bank >= self.current_field.cost:
+                raise ValueError('not enough money!')
+            self.bank -= self.current_field.cost
+            self.collection_real_estate[self.current_field.name] = self.current_field
 
 
 class CollectionPlayers:

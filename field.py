@@ -45,6 +45,7 @@ class Field:
         ['Boardwalk $400', 'blue', -350]
     ]
 
+    #TODO: метод по всіх викликах повертає None
     def __new__(cls, desc):
         '''
 
@@ -54,12 +55,11 @@ class Field:
         if desc == 'RealEstate':
             return super(Field, cls).__new__(RealEstate)
 
-
     def __init__(self, number):
         '''
         :param number: number field 0 - 39
         '''
-        if not 0 < number < Field.get_field_count():
+        if not 0 <= number < Field.get_field_count():
             raise IndexError("Field doesn't exist")
         self.field = self._FIELDS[number]
 

@@ -15,7 +15,7 @@ class Board:
         return 'Board()'
 
     def __str__(self):
-        return 'Board: \n {}'.format('\n'.join([self.board]))
+        return str(self.board) #'Board: \n {}'.format(''.join(self.board))
 
     def __getitem__(self, item):
         '''
@@ -27,3 +27,5 @@ class Board:
         ['Collect $200 salary as you pass GO', 200]
         '''
         return self.board[item].field
+
+obj_board = Board()
