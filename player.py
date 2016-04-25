@@ -61,7 +61,6 @@ class Player:
         It gives the opportunity to buy property if the player has enough money
         :return:
         '''
-        print('buy_real_estate')
         if input('{}, do you want to buy this real estate? \n input "yes": '.format(self.name)) == 'yes':
             if not self.bank >= self.current_field.cost:
                 raise ValueError('not enough money!')
