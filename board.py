@@ -10,6 +10,8 @@ class Board:
             field.Field(number)
             for number in range(field.Field.get_field_count())
         ]
+        field.ChanceField._CHANCE_CARDS = field.ChanceField.shuffle_chance_cards()
+        return field.ChanceField._CHANCE_CARDS
 
     def __repr__(self):
         return 'Board()'

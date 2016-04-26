@@ -132,8 +132,9 @@ class ChanceField:
     def shuffle_chance_cards():
         return random.shuffle(ChanceField._CHANCE_CARDS)
 
-
-
+    def __init__(self):
+        self = ChanceField._CHANCE_CARDS[0]
+        ChanceField._CHANCE_CARDS += ChanceField._CHANCE_CARDS.pop(0)
 
 
 
