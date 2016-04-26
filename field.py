@@ -1,3 +1,5 @@
+import random
+
 class Field:
     """
     Field of Monopoly Game Board
@@ -59,6 +61,8 @@ class Field:
             return RealEstateField(*args)
         elif desc == 'Start':
             return StartField(*args)
+        elif desc == 'Chance':
+            return ChanceField(*args)
         else:
             return NoneField()
 
@@ -101,3 +105,41 @@ class StartField:
 
     def do(self, going_player):
         pass
+
+
+class ChanceField:
+
+    _CHANCE_CARDS = [
+        ['GO BACK THREE SPACES'],
+        ['PAY SCHOOL TAX', -150],
+        ['PARKING FINE', -15],
+        ['GET OUT OF JAIL FREE'],
+        ["ADVANCE TO 'GO'"],
+        ["ADVANCE TO ILLINOIS AVENUE, IF YOU PASS 'GO' COLLECT 200"],
+        ['PAY POOR TAX', -12],
+        ['MAKE GENERAL REPAIRS ON ALL OF YOUR HOUSES: 25 FOR EACH HOUSE, 100 FOR EACH HOTEL'],
+        ['YOU ARE ASSESSED FOR STREET REPAIRS: 40 PER HOUSE, 115 PER HOTEL'],
+        ['YOUR XMAS FUND MATURES', 100],
+        ['YOUR BUILDING AND LOAN MATURES', 150],
+        ["ADVANCE TO ST. CHARLES PLACE, IF YOU PASS 'GO' COLLECT 200"],
+        ["GO TO JAIL, MOVE DIRECTLY TO JAIL, DO NOT PASS 'GO', DO NOT COLLECT 200"],
+        ['TAKE A WALK ON THE BOARDWALK'],
+        ["TAKE A RIDE ON THE REDING ADVANCE TOKEN AND IF YOU PASS 'GO' COLLECT 200"],
+        ['BANK PAYS YOU DIVIDEND', 50]
+        ]
+
+    @staticmethod
+    def shuffle_chance_cards():
+        return random.shuffle(ChanceField._CHANCE_CARDS)
+
+    def __init__(self):
+        self = ChanceField._CHANCE_CARDS[0]
+        ChanceField._CHANCE_CARDS += ChanceField._CHANCE_CARDS.pop(0)
+
+
+
+
+
+
+
+
