@@ -4,48 +4,47 @@ class Field:
     """
     _FIELDS = [
         ['Start', 'Collect $200 salary as you pass GO', 200],
-        ['RealEstate', 'Mediter-ranean Avenue $60', 'brown', -60],
+        ['RealEstate', 'Mediter-ranean Avenue $60', 'brown', [-2, -10, -30, -90, -160, -250], -60],
         ['Community Chest'],
-        ['RealEstate', 'Baltic Avenue $60', 'brown', -60],
+        ['RealEstate', 'Baltic Avenue $60', 'brown', [-4, -20, -60, -180, -320, -450], -60],
         ['Income Tax (pay $200)', -200],
         ['Reading Railroad $200', -200],
-        ['RealEstate', 'Oriental Avenue $100', 'light blue', -100],
+        ['RealEstate', 'Oriental Avenue $100', 'light blue', [-6, -30, -90, -270, -400, -550], -100],
         ['Chance'],
-        ['RealEstate', 'Vermont Avenue $100', 'light blue', -100],
-        ['RealEstate', 'Connecticut Avenue $120', 'light blue', -120],
+        ['RealEstate', 'Vermont Avenue $100', 'light blue', [-6, -30, -90, -270, -400, -550], -100],
+        ['RealEstate', 'Connecticut Avenue $120', 'light blue', [-8, -40, -100, -300, -450, -600], -120],
         ['In Jail/Just Visiting'],
-        ['RealEstate', 'St. Charles Place$140', 'pink', -140],
+        ['RealEstate', 'St. Charles Place$140', 'pink', [-12, -60, -180, -500, -700, -900], -140],
         ['Electric Company $150', -150],
-        ['RealEstate', 'States Avenue $140', 'pink', -140],
-        ['RealEstate', 'Virginia Avenue $160', 'pink', -160],
+        ['RealEstate', 'States Avenue $140', 'pink', [-10, -50, -150, -450, -625, -750], -140],
+        ['RealEstate', 'Virginia Avenue $160', 'pink', [-10, -50, -150, -450, -625, -750], -160],
         ['Pennsylvania Railroad $200', -200],
-        ['RealEstate', 'St. James Place $180', 'orange', -180],
+        ['RealEstate', 'St. James Place $180', 'orange', [-14, -70, -200, -550, -750, -950], -180],
         ['Community Chest'],
-        ['RealEstate', 'Tennessee Avenue $180', 'orange', -180],
-        ['RealEstate', 'New York Avenue $200', 'orange', -200],
+        ['RealEstate', 'Tennessee Avenue $180', 'orange', [-14, -70, -200, -550, -750, -950], -180],
+        ['RealEstate', 'New York Avenue $200', 'orange', [-16, -80, -220, -600, -800, -1000], -200],
         ['Free Parking'],
-        ['RealEstate', 'Kentucky Avenue $220', 'red', -220],
+        ['RealEstate', 'Kentucky Avenue $220', 'red', [-20, -100, -300, -750, -925, -1100], -220],
         ['Chance'],
-        ['RealEstate', 'Indiana Avenue $220',  'red', -220],
-        ['RealEstate', 'Illinois Avenue $240', 'red', -240],
+        ['RealEstate', 'Indiana Avenue $220',  'red', [-18, -90, -250, -700, -875, -1050], -220],
+        ['RealEstate', 'Illinois Avenue $240', 'red', [-18, -90, -250, -700, -875, -1050], -240],
         ['B&O Railroad $200', -200],
-        ['RealEstate', 'Atlantic Avenue $260', 'yellow', -260],
-        ['RealEstate', 'Ventnor Avenue $260', 'yellow', -260],
+        ['RealEstate', 'Atlantic Avenue $260', 'yellow', [-24, -120, -360, -850, -1025, -1200], -260],
+        ['RealEstate', 'Ventnor Avenue $260', 'yellow', [-22, -110, -330, -800, -975, -1150], -260],
         ['Water Works $150', -150],
-        ['RealEstate', 'Marvin Gardens $280', 'yellow', -280],
+        ['RealEstate', 'Marvin Gardens $280', 'yellow', [-22, -110, -330, -800, -975, -1150], -280],
         ['Go To Jail'],
-        ['RealEstate', 'Pacific Avenue $300', 'green', -300],
-        ['RealEstate', 'North Carolina Avenue $300', 'green', -300],
+        ['RealEstate', 'Pacific Avenue $300', 'green', [-26, -130, -390, -900, -1100, -1275], -300],
+        ['RealEstate', 'North Carolina Avenue $300', 'green', [-26, -130, -390, -900, -1100, -1275], -300],
         ['Community Chest'],
-        ['RealEstate', 'Pennsylvania Avenue $320', 'green', -320],
+        ['RealEstate', 'Pennsylvania Avenue $320', 'green', [-28, -150, -450, -1000, -1200, -1400], -320],
         ['Short Line $200', -200],
         ['Chance'],
-        ['RealEstate', 'Park Place $350', 'blue', -350],
+        ['RealEstate', 'Park Place $350', 'blue', [-35, -175, -500, -1100, -1300, -1500], -350],
         ['Luxury Tax (pay $100)', -100],
-        ['RealEstate', 'Boardwalk $400', 'blue', -350]
+        ['RealEstate', 'Boardwalk $400', 'blue', [-50, -200, -600, -1400, -1700, -2000], -350]
     ]
 
-    #TODO: метод по всіх викликах повертає None
     def __new__(cls, number):
         '''
 
@@ -78,10 +77,11 @@ class NoneField:
 
 
 class RealEstateField:
-    def __init__(self, name, color, cost):
+    def __init__(self, name, color, rent, cost):
         self.name = name
         self.color = color
         self.cost = cost
+        self.rent = rent
         self.owner = None
 
     def __str__(self):
