@@ -81,19 +81,32 @@ class NoneField:
 
 
 class RealEstateField:
-    def __init__(self, name, color, rent, cost):
+    def __init__(self, name, color, rent_levels, cost):
         self.name = name
         self.color = color
         self.cost = cost
-        self.rent = rent
+        self.rent_levels = rent_levels
+        self.rent = None
         self.owner = None
 
     def __str__(self):
         return '{}, {}, {}'.format(self.name, self.color, self.cost)
 
     def do(self, going_player):
+        print(self)
+        if self.owner:
+            #TODO: чи варто виносити запроси на введення та виведення інформації в окремі функції чи клас(и)?
+            print('{} owner is {},\n {}, you must pay rents: {}'.format
+                  (self.name, self.owner.name, going_player.name, self.rent)
+                  )
+            going_player.change_balance(self.rent)
+            print('{} bank: {}'.format(going_player.name, going_player.bank))
+            self.owner.change_balance(abs(self.rent))
+            print('{} bank: {}'.format(self.owner.name, self.owner.bank))
         going_player.buy_real_estate(self)
 
+    def get_rent(self, level):
+        return self.rent_levels[level]
 
 class StartField:
     def __init__(self, name, cost):
@@ -106,7 +119,7 @@ class StartField:
     def do(self, going_player):
         pass
 
-
+#TODO: AttributeError: 'ChanceField' object has no attribute 'do'
 class ChanceField:
 
     _CHANCE_CARDS = [

@@ -38,9 +38,13 @@ class Player:
         self.bank += cost
 
     def buy_real_estate(self, field):
-        if self.input('?') == 'y':
+        if self.input('{}, do you want to buy this real estate? \n input "yes": '.format(self.name)) == 'yes':
+            if not self.bank >= field.cost:
+                raise ValueError('not enough money!')
             self.change_balance(field.cost)
             field.owner = self
+            field.rent = self.board[self.position].get_rent(0)
+            print('{} owner is {}, bank: {}'.format(field.name, field.owner.name, self.bank))
 
     @staticmethod
     def get_player_information():

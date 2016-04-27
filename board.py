@@ -17,7 +17,7 @@ class Board:
         return 'Board()'
 
     def __str__(self):
-        return str(self.board) #'Board: \n {}'.format(''.join(self.board))
+        return 'Board: \n {}'.format(''.join([str(field_.__dict__) for field_ in self.board])) #str(self.board)
 
     def __getitem__(self, item):
         '''
