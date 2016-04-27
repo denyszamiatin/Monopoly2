@@ -94,16 +94,15 @@ class RealEstateField:
 
     def do(self, going_player):
         print(self)
-        if self.owner:
-            if self.owner is not going_player:
-                #TODO: чи варто виносити запроси на введення та виведення інформації в окремі функції чи клас(и)?
-                print('{} owner is {},\n {}, you must pay rents: {}'.format
-                      (self.name, self.owner.name, going_player.name, self.rent)
-                      )
-                going_player.change_balance(self.rent)
-                print('{} bank: {}'.format(going_player.name, going_player.bank))
-                self.owner.change_balance(abs(self.rent))
-                print('{} bank: {}'.format(self.owner.name, self.owner.bank))
+        if self.owner and self.owner is not going_player:
+            #TODO: чи варто виносити запроси на введення та виведення інформації в окремі функції чи клас(и)?
+            print('{} owner is {},\n {}, you must pay rents: {}'.format
+                    (self.name, self.owner.name, going_player.name, self.rent)
+                    )
+            going_player.change_balance(self.rent)
+            print('{} bank: {}'.format(going_player.name, going_player.bank))
+            self.owner.change_balance(abs(self.rent))
+            print('{} bank: {}'.format(self.owner.name, self.owner.bank))
         else:
             going_player.buy_real_estate(self)
 

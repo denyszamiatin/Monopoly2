@@ -27,6 +27,7 @@ def show_field_after_motion(name, position):
 
 
 player_collection = player.CollectionPlayers(get_amount_players())
+player.Player.player_collection = player_collection
 game_board = board.Board()
 player.Player.board = game_board
 player.Player.input = input
@@ -41,8 +42,3 @@ while True:
             going_player.make_move()
             show_field_after_motion(going_player.name, going_player.position)
             game_board[going_player.position].do(going_player)
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
