@@ -104,7 +104,8 @@ class RealEstateField:
                 print('{} bank: {}'.format(going_player.name, going_player.bank))
                 self.owner.change_balance(abs(self.rent))
                 print('{} bank: {}'.format(self.owner.name, self.owner.bank))
-        going_player.buy_real_estate(self)
+        else:
+            going_player.buy_real_estate(self)
 
     def get_rent(self, level):
         return self.rent_levels[level]
