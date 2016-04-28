@@ -29,9 +29,13 @@ class Player:
         '''
         Get new player's position
         '''
-        self.previous_position = self.position
-        self.position = (sum(self.roll_dice()) + self.position) % (field.Field.get_field_count() - 1)
+        self.change_position(sum(self.roll_dice()))
         return self
+
+    def change_position(self, position):
+        self.previous_position = self.position
+        self.position = (self.position + position) \
+            % (field.Field.get_field_count() - 1)
 
     def check_bank(self, amount):
         return self.bank >= abs(amount)
@@ -41,58 +45,35 @@ class Player:
 
     def set_ownership(self, field, cost):
         self.change_balance(cost)
-        field.owner = self
+        field.set_owner(self)
         field.rent = field.get_rent(0)
         print('{} owner is {}, bank: {}'.format(field.name, field.owner.name, self.bank))
 
     def get_auction_offer(self):
         try:
-            offer = int(input('{}, input receive auction offer: '.format(self.name)))
-        except:
-            offer = 0
-        return offer
+            offer = int(input('{}, input receive auction offer: '.
+                              format(self.name)))
+            if self.check_bank(offer):
+                return offer
+        except ValueError:
+            pass
+        return 0
 
-    def show_auction_winner(self, name, max_offer):
-        print('auction winner is', name, ', max_offer is:', max_offer)
-
-    def realize_auction(self, field):
-        print("Let's auction!!!")
-        '''
-        Conducted an auction to buy real estate
-        '''
-        auction_participants = self.player_collection.players[:]
-        max_offer = 0
-        while len(auction_participants) > 1:
-            bidders = auction_participants[:]
-            for bidder in bidders:
-                offer = bidder.get_auction_offer()
-                if offer <= max_offer:
-                    if len(auction_participants) > 1:
-                        auction_participants.remove(bidder)
-                else:
-                    max_offer = offer
-        winner = auction_participants[0]
-        if winner.check_bank(max_offer):
-            self.show_auction_winner(winner.name, max_offer)
-            winner.set_ownership(field, -max_offer)
-        else:
-            print(winner.name, ', not enough money to buying real estate!')
-            self.realize_auction(field)
+    def _ask_for_buy(self):
+        return input(
+                '{}, do you want to buy this real estate? \n input "yes": '
+                .format(self.name)
+            ) == 'yes'
 
     def buy_real_estate(self, field):
         '''
         A buying real estate
         :param field:
         '''
-        try:
-            if self.input('{}, do you want to buy this real estate? \n input "yes": '.format(self.name)) == 'yes':
-                if not self.check_bank(field.cost):
-                    raise ValueError('not enough money to buying real estate!')
-                self.set_ownership(field, field.cost)
-            else:
-                raise ValueError('player refused the buying real estate')
-        except ValueError:
-            self.realize_auction(field)
+        if self._ask_for_buy() and self.check_bank(field.cost):
+            self.set_ownership(field, field.cost)
+        else:
+            self.player_collection.realize_auction(field)
 
     @staticmethod
     def get_player_information():
@@ -136,3 +117,33 @@ class CollectionPlayers:
     def __iter__(self):
         for player in self.players:
             yield player
+
+    def get_max_offer(self, max_offer, winner):
+        is_winner_changed = False
+        for bidder in self.players:
+            offer = bidder.get_auction_offer()
+            if offer > max_offer:
+                max_offer, winner = offer, bidder
+                is_winner_changed = True
+        return is_winner_changed, winner, max_offer
+
+    def get_auction_winner(self):
+        max_offer, winner = 0, None
+        is_winner_changed = True
+        while is_winner_changed:
+            is_winner_changed, winner, max_offer = \
+                self.get_max_offer(max_offer, winner)
+        return winner, max_offer
+
+    @staticmethod
+    def show_auction_winner(name, max_offer):
+        print('auction winner is', name, ', max_offer is:', max_offer)
+
+    def realize_auction(self, field):
+        print("Let's auction!!!")
+        '''
+        Conducted an auction to buy real estate
+        '''
+        winner, max_offer = self.get_auction_winner()
+        self.show_auction_winner(winner.name, max_offer)
+        winner.set_ownership(field, -max_offer)

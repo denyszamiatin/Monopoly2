@@ -66,7 +66,6 @@ class Field:
         else:
             return NoneField()
 
-
     @staticmethod
     def get_field_count():
         return len(Field._FIELDS)
@@ -92,22 +91,31 @@ class RealEstateField:
     def __str__(self):
         return '{}, {}, {}'.format(self.name, self.color, self.cost)
 
+    def _transfer_money(self, going_player):
+        print('{} owner is {},\n {}, you must pay rents: {}'.format
+              (self.name, self.owner.name, going_player.name, self.rent)
+              )
+        going_player.change_balance(-self.rent)
+        print('{} bank: {}'.format(going_player.name, going_player.bank))
+        self.owner.change_balance(self.rent)
+        print('{} bank: {}'.format(self.owner.name, self.owner.bank))
+
+    def _is_not_owner(self, player):
+        return self.owner is not player
+
     def do(self, going_player):
         print(self)
-        if self.owner and self.owner is not going_player:
-            #TODO: чи варто виносити запроси на введення та виведення інформації в окремі функції чи клас(и)?
-            print('{} owner is {},\n {}, you must pay rents: {}'.format
-                    (self.name, self.owner.name, going_player.name, self.rent)
-                    )
-            going_player.change_balance(self.rent)
-            print('{} bank: {}'.format(going_player.name, going_player.bank))
-            self.owner.change_balance(self.rent)
-            print('{} bank: {}'.format(self.owner.name, self.owner.bank))
-        else:
+        if not self.owner:
             going_player.buy_real_estate(self)
+        elif self._is_not_owner(going_player):
+            self._transfer_money(going_player)
+
 
     def get_rent(self, level):
         return self.rent_levels[level]
+
+    def set_owner(self, owner):
+        self.owner = owner
 
 class StartField:
     def __init__(self, name, cost):
@@ -122,47 +130,10 @@ class StartField:
 
 #TODO: TypeError: __init__() missing 1 required positional argument: 'card'
 class ChanceField:
-
-    _CHANCE_CARDS = [
-        ['GO BACK THREE SPACES'],
-        ['PAY SCHOOL TAX: 150'],
-        ['PARKING FINE: 15'],
-        ['GET OUT OF JAIL FREE'],
-        ["ADVANCE TO 'GO'"],
-        ["ADVANCE TO ILLINOIS AVENUE, IF YOU PASS 'GO' COLLECT 200"],
-        ['PAY POOR TAX: 12'],
-        ['MAKE GENERAL REPAIRS ON ALL OF YOUR HOUSES: 25 FOR EACH HOUSE, 100 FOR EACH HOTEL'],
-        ['YOU ARE ASSESSED FOR STREET REPAIRS: 40 PER HOUSE, 115 PER HOTEL'],
-        ['YOUR XMAS FUND MATURES: 100'],
-        ['YOUR BUILDING AND LOAN MATURES: 150'],
-        ["ADVANCE TO ST. CHARLES PLACE, IF YOU PASS 'GO' COLLECT 200"],
-        ["GO TO JAIL, MOVE DIRECTLY TO JAIL, DO NOT PASS 'GO', DO NOT COLLECT 200"],
-        ['TAKE A WALK ON THE BOARDWALK'],
-        ["TAKE A RIDE ON THE REDING ADVANCE TOKEN AND IF YOU PASS 'GO' COLLECT 200"],
-        ['BANK PAYS YOU DIVIDEND: 50']
-        ]
-
-    @staticmethod
-    def shuffle_chance_cards():
-        return random.shuffle(ChanceField._CHANCE_CARDS)
-
-    def __init__(self, card):
-        self.card = card
-        self.card = ChanceField._CHANCE_CARDS[0]
-        ChanceField._CHANCE_CARDS += ChanceField._CHANCE_CARDS.pop(0)
-
     def do(self, going_player):
-        if self.card == ['GO BACK THREE SPACES']:
-            going_player.position -= 3
+        card = going_player.board.take_chance_card()
+        if card == ['GO BACK THREE SPACES']:
+            going_player.change_position(-3)
 
-        elif self.card == ['PAY SCHOOL TAX: 150']:
-            going_player.bank -= 150
-
-
-
-
-
-
-
-
-
+        elif card == ['PAY SCHOOL TAX: 150']:
+            going_player.change_balance(-150)
