@@ -64,11 +64,11 @@ class Player:
         max_offer = 0
         while len(auction_participants) > 1:
             bidders = auction_participants[:]
-            for auction_participant in bidders:
-                offer = auction_participant.get_auction_offer()
+            for bidder in bidders:
+                offer = bidder.get_auction_offer()
                 if offer <= max_offer:
                     if len(auction_participants) > 1:
-                        auction_participants.remove(auction_participant)
+                        auction_participants.remove(bidder)
                 else:
                     max_offer = offer
         winner = auction_participants[0]
