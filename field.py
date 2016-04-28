@@ -120,7 +120,7 @@ class StartField:
     def do(self, going_player):
         pass
 
-
+#TODO: TypeError: __init__() missing 1 required positional argument: 'card'
 class ChanceField:
 
     _CHANCE_CARDS = [

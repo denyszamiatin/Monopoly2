@@ -42,7 +42,7 @@ class Player:
     def set_ownership(self, field, cost):
         self.change_balance(cost)
         field.owner = self
-        field.rent = self.board[self.position].get_rent(0)
+        field.rent = field.get_rent(0)
         print('{} owner is {}, bank: {}'.format(field.name, field.owner.name, self.bank))
 
     def get_auction_offer(self):
@@ -67,14 +67,16 @@ class Player:
             for auction_participant in bidders:
                 offer = auction_participant.get_auction_offer()
                 if offer <= max_offer:
-                    auction_participants.remove(auction_participant)
+                    if len(auction_participants) > 1:
+                        auction_participants.remove(auction_participant)
                 else:
                     max_offer = offer
         winner = auction_participants[0]
-        if len(auction_participants) >= 1 and winner.check_bank(max_offer):
+        if winner.check_bank(max_offer):
             self.show_auction_winner(winner.name, max_offer)
             winner.set_ownership(field, -max_offer)
         else:
+            print(winner.name, ', not enough money to buying real estate!')
             self.realize_auction(field)
 
     def buy_real_estate(self, field):
