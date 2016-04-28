@@ -146,15 +146,16 @@ class ChanceField:
     def shuffle_chance_cards():
         return random.shuffle(ChanceField._CHANCE_CARDS)
 
-    def __init__(self):
-        self = ChanceField._CHANCE_CARDS[0]
+    def __init__(self, card):
+        self.card = card
+        self.card = ChanceField._CHANCE_CARDS[0]
         ChanceField._CHANCE_CARDS += ChanceField._CHANCE_CARDS.pop(0)
 
     def do(self, going_player):
-        if self == ['GO BACK THREE SPACES']:
+        if self.card == ['GO BACK THREE SPACES']:
             going_player.position -= 3
 
-        elif self == ['PAY SCHOOL TAX: 150']:
+        elif self.card == ['PAY SCHOOL TAX: 150']:
             going_player.bank -= 150
 
 
