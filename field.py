@@ -128,7 +128,7 @@ class StartField:
     def do(self, going_player):
         pass
 
-#TODO: TypeError: __init__() missing 1 required positional argument: 'card'
+
 class ChanceField:
     def do(self, going_player):
         card = going_player.board.take_chance_card()
@@ -137,3 +137,8 @@ class ChanceField:
 
         elif card == ['PAY SCHOOL TAX: 150']:
             going_player.change_balance(-150)
+
+        
+
+
+
