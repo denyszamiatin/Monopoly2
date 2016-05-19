@@ -4,14 +4,15 @@ from player import CollectionPlayers
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
 @app.route('/', methods=['GET', 'POST'])
 def add_amount_players():
     if request.method == 'POST':
+        try:
+            player_quantity = int(request.form['amount_players'])
+            if not 2 < player_quantity < 6:
+                raise ValueError
+        except ValueError:
+            return render_template('index.html')
         CollectionPlayers.amount_players = request.form['amount_players']
     return render_template('index.html')
 
